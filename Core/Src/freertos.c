@@ -47,12 +47,31 @@
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
-/* Definitions for defaultTask */
-osThreadId_t defaultTaskHandle;
-const osThreadAttr_t defaultTask_attributes = {
-  .name = "defaultTask",
+/* Definitions for LedTask */
+osThreadId_t LedTaskHandle;
+const osThreadAttr_t LedTask_attributes = {
+  .name = "LedTask",
   .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityHigh6,
+};
+/* Definitions for KeyTask */
+osThreadId_t KeyTaskHandle;
+const osThreadAttr_t KeyTask_attributes = {
+  .name = "KeyTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityHigh7,
+};
+/* Definitions for LoraTask */
+osThreadId_t LoraTaskHandle;
+const osThreadAttr_t LoraTask_attributes = {
+  .name = "LoraTask",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityRealtime,
+};
+/* Definitions for KeyMsgQueue */
+osMessageQueueId_t KeyMsgQueueHandle;
+const osMessageQueueAttr_t KeyMsgQueue_attributes = {
+  .name = "KeyMsgQueue"
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -60,7 +79,9 @@ const osThreadAttr_t defaultTask_attributes = {
 
 /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void *argument);
+void StartLedTask(void *argument);
+void StartKeyTask(void *argument);
+void StartLoraTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -98,13 +119,23 @@ void MX_FREERTOS_Init(void) {
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
+  /* Create the queue(s) */
+  /* creation of KeyMsgQueue */
+  KeyMsgQueueHandle = osMessageQueueNew (6, sizeof(int), &KeyMsgQueue_attributes);
+
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  /* creation of LedTask */
+  LedTaskHandle = osThreadNew(StartLedTask, NULL, &LedTask_attributes);
+
+  /* creation of KeyTask */
+  KeyTaskHandle = osThreadNew(StartKeyTask, NULL, &KeyTask_attributes);
+
+  /* creation of LoraTask */
+  LoraTaskHandle = osThreadNew(StartLoraTask, NULL, &LoraTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -116,22 +147,58 @@ void MX_FREERTOS_Init(void) {
 
 }
 
-/* USER CODE BEGIN Header_StartDefaultTask */
+/* USER CODE BEGIN Header_StartLedTask */
 /**
-  * @brief  Function implementing the defaultTask thread.
+  * @brief  Function implementing the LedTask thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument)
+/* USER CODE END Header_StartLedTask */
+__weak void StartLedTask(void *argument)
 {
-  /* USER CODE BEGIN StartDefaultTask */
+  /* USER CODE BEGIN StartLedTask */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END StartDefaultTask */
+  /* USER CODE END StartLedTask */
+}
+
+/* USER CODE BEGIN Header_StartKeyTask */
+/**
+* @brief Function implementing the KeyTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartKeyTask */
+__weak void StartKeyTask(void *argument)
+{
+  /* USER CODE BEGIN StartKeyTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartKeyTask */
+}
+
+/* USER CODE BEGIN Header_StartLoraTask */
+/**
+* @brief Function implementing the LoraTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartLoraTask */
+__weak void StartLoraTask(void *argument)
+{
+  /* USER CODE BEGIN StartLoraTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartLoraTask */
 }
 
 /* Private application code --------------------------------------------------*/

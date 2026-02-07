@@ -41,7 +41,10 @@ add_executable(${CMAKE_PROJECT_NAME}
         Radio/src/sx1276-Hal.c
         Radio/src/sx1276-FskMisc.c
         Radio/src/sx1276-Fsk.c
-        Radio/src/sx1276.c)
+        Radio/src/sx1276.c
+        Core/APP/Tasks/KeyTask.c
+        Core/APP/Tasks/LedTask.c
+        Core/APP/Tasks/LoraTask.c)
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
@@ -60,6 +63,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
         Radio/inc
+        Core/APP/Types
 )
 
 # Add project symbols (macros)

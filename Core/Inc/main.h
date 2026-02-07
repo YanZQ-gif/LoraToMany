@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "cmsis_os2.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -63,11 +63,23 @@ void Error_Handler(void);
 #define RF_IO0_GPIO_Port GPIOA
 #define RF_IO1_Pin GPIO_PIN_6
 #define RF_IO1_GPIO_Port GPIOA
+#define KEY1_Pin GPIO_PIN_7
+#define KEY1_GPIO_Port GPIOA
+#define KEY3_Pin GPIO_PIN_0
+#define KEY3_GPIO_Port GPIOB
+#define KEY2_Pin GPIO_PIN_1
+#define KEY2_GPIO_Port GPIOB
+#define BUZ_Pin GPIO_PIN_8
+#define BUZ_GPIO_Port GPIOA
+#define LED1_Pin GPIO_PIN_9
+#define LED1_GPIO_Port GPIOA
+#define LED2_Pin GPIO_PIN_10
+#define LED2_GPIO_Port GPIOA
 #define SPI1_NSS_Pin GPIO_PIN_15
 #define SPI1_NSS_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
-
+extern  osMessageQueueId_t KeyMsgQueueHandle;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
