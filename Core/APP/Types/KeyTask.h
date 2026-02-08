@@ -22,6 +22,10 @@ typedef enum {
     KEY_3_LONG,				/* 3键长按 */
 }KEY_ENUM;
 
+#define KEY_GUANDENG    KEY_1_DOWN  // 关灯对应1键按下
+#define KEY_TIAOLIANGDU KEY_2_DOWN  // 调亮度对应2键按下
+#define KEY_KAIDENG     KEY_3_DOWN  // 开灯对应3键按下
+
 uint8_t DetectKey(void);
 
 #endif //LORATOMANY_KEY_H

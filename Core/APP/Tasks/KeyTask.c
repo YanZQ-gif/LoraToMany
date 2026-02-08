@@ -5,6 +5,7 @@
 #include "cmsis_os.h"
 #include "KeyTask.h"
 #include "main.h"
+#include "LoraTask.h"
 
 
 void StartLedTask(void *argument)
@@ -14,9 +15,10 @@ void StartLedTask(void *argument)
     for(;;)
     {
         for (;;) {
-            KEY_ENUM key = DetectKey();
+            KEY_ENUM key = DetectKey(); //貌似不用消息队列，直接解析到键值发送lora就可以
             if (key != KEY_NONE) {
-                osMessageQueuePut(KeyMsgQueueHandle,&key,0,osWaitForever);
+                //osMessageQueuePut(KeyMsgQueueHandle,&key,0,osWaitForever);
+                Lora_SendFrame(key,LORA_CMD_FRAME_ID,LORA_DEV_ID);
             }
             osDelay(50);
         }

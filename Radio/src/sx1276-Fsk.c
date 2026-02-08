@@ -575,7 +575,7 @@ uint32_t SX1276FskProcess( void )
 
         if( DIO0 == 1 ) // PacketSent
         {
-					  TxTimeoutTimer = HAL_GetTick(); //YZQ write
+            TxTimeoutTimer = HAL_GetTick(); //YZQ write
             RFState = RF_STATE_TX_DONE;
             SX1276FskSetOpMode( RF_OPMODE_STANDBY );
         }

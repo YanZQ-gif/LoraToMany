@@ -102,39 +102,39 @@ void SX1276ReadFifo( uint8_t *buffer, uint8_t size )
     SX1276ReadBuffer( 0, buffer, size );
 }
 
-inline uint8_t SX1276ReadDio0( void )
+uint8_t SX1276ReadDio0( void )
 {
    return HAL_GPIO_ReadPin( RF_IO0_GPIO_Port, RF_IO0_Pin );
 }
 
-inline uint8_t SX1276ReadDio1( void )
+uint8_t SX1276ReadDio1( void )
 {
    return HAL_GPIO_ReadPin( RF_IO1_GPIO_Port, RF_IO1_Pin );
 }
 
-inline uint8_t SX1276ReadDio2( void )
+uint8_t SX1276ReadDio2( void )
 {
     //return HAL_GPIO_ReadPin( RF_DIO2_PORT, RF_DIO2_IO );
   return 0;
 }
 
-inline uint8_t SX1276ReadDio3( void )
+uint8_t SX1276ReadDio3( void )
 {
    //return HAL_GPIO_ReadPin( RF_DIO3_PORT, RF_DIO3_IO );
 }
 
-inline uint8_t SX1276ReadDio4( void )
+uint8_t SX1276ReadDio4( void )
 {
   return 0;
 }
 
-inline uint8_t SX1276ReadDio5( void )
+uint8_t SX1276ReadDio5( void )
 {
   // return GPIO_ReadInputDataBit( RF_DIO5_PORT, RF_DIO5_IO );
   return 0;
 }
 
-inline void SX1276WriteRxTx( uint8_t txEnable )
+void SX1276WriteRxTx( uint8_t txEnable )
 {
     if( txEnable != 0 )
     {
