@@ -24,10 +24,11 @@ void StartLoraTask(void *argument)
     /* Infinite loop */
     for(;;)
     {
-    	//osMessageQueuePut(KeyMsgQueueHandle,&key,0,osWaitForever);
     	uint32_t key;
-    	osMessageQueueGet(LoraMsgQueueHandle,&key,0,0);
-    	Lora_SendFrame(key,LORA_CMD_FRAME_ID,LORA_DEV_ID);
+    	osStatus_t status = osMessageQueueGet(LoraMsgQueueHandle,&key,0,10);
+    	if (status == osOK) {
+    		Lora_SendFrame(key,LORA_CMD_FRAME_ID,LORA_DEV_ID);
+    	}
     	LoraProcess(); //查询接收
     }
     /* USER CODE END StartLoraTask */

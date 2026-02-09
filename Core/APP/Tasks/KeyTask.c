@@ -14,12 +14,12 @@ void StartKeyTask(void *argument)
     for(;;)
     {
         for (;;) {
-            KEY_ENUM key = DetectKey(); //貌似不用消息队列，直接解析到键值发送lora就可以
+            KEY_ENUM key = DetectKey();
             if (key != KEY_NONE) {
                 osMessageQueuePut(LoraMsgQueueHandle,&key,0,10); //给lora任务消息
                 osMessageQueuePut(LedMsgQueueHandle,&key,0,10);  //给自己灯任务消息
             }
-            osDelay(50);
+            osDelay(50); //50ms扫描一次按键
         }
     }
     /* USER CODE END StartLedTask */

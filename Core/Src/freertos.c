@@ -51,14 +51,14 @@
 osThreadId_t LedTaskHandle;
 const osThreadAttr_t LedTask_attributes = {
   .name = "LedTask",
-  .stack_size = 128 * 4,
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityHigh6,
 };
 /* Definitions for KeyTask */
 osThreadId_t KeyTaskHandle;
 const osThreadAttr_t KeyTask_attributes = {
   .name = "KeyTask",
-  .stack_size = 128 * 4,
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityHigh7,
 };
 /* Definitions for LoraTask */
