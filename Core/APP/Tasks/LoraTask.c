@@ -24,8 +24,11 @@ void StartLoraTask(void *argument)
     /* Infinite loop */
     for(;;)
     {
-    	LoraProcess();
-    	osDelay(1);
+    	//osMessageQueuePut(KeyMsgQueueHandle,&key,0,osWaitForever);
+    	uint32_t key;
+    	osMessageQueueGet(LoraMsgQueueHandle,&key,0,0);
+    	Lora_SendFrame(key,LORA_CMD_FRAME_ID,LORA_DEV_ID);
+    	LoraProcess(); //查询接收
     }
     /* USER CODE END StartLoraTask */
 }
@@ -46,20 +49,8 @@ void LoraProcess( void )
 				uint16_t crctemp=RadioComputeCRC(RXBuffer,num_rx-2,CRC_TYPE_IBM);
 				if(crc_value==crctemp)//CRC check
 				{
-					//Lora_Decode(RXBuffer,num_rx);
-					switch (RXBuffer[4]) {
-						case KEY_KAIDENG:
-							//发消息给LED？
-							break;
-						case KEY_GUANDENG:
-
-							break;
-
-						case KEY_TIAOLIANGDU:
-							break;;
-
-						default:break;
-					}
+					//收到空中LORA消息，发led消息动作led
+					osMessageQueuePut(LedMsgQueueHandle,&RXBuffer[4],0,10);
 				}
 			}
 			break;

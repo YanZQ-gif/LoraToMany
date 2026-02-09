@@ -6,6 +6,10 @@
 #ifndef LORATOMANY_KEY_H
 #define LORATOMANY_KEY_H
 
+#define KEY1_DIN()  HAL_GPIO_ReadPin(KEY1_GPIO_Port,KEY1_Pin)
+#define KEY2_DIN()  HAL_GPIO_ReadPin(KEY2_GPIO_Port,KEY2_Pin)
+#define KEY3_DIN()  HAL_GPIO_ReadPin(KEY3_GPIO_Port,KEY3_Pin)
+
 typedef enum {
     KEY_NONE = 0,			/* 0 表示按键事件 */
 

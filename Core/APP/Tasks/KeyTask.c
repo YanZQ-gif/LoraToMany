@@ -5,10 +5,9 @@
 #include "cmsis_os.h"
 #include "KeyTask.h"
 #include "main.h"
-#include "LoraTask.h"
 
 
-void StartLedTask(void *argument)
+void StartKeyTask(void *argument)
 {
     /* USER CODE BEGIN StartLedTask */
     /* Infinite loop */
@@ -17,8 +16,8 @@ void StartLedTask(void *argument)
         for (;;) {
             KEY_ENUM key = DetectKey(); //貌似不用消息队列，直接解析到键值发送lora就可以
             if (key != KEY_NONE) {
-                //osMessageQueuePut(KeyMsgQueueHandle,&key,0,osWaitForever);
-                Lora_SendFrame(key,LORA_CMD_FRAME_ID,LORA_DEV_ID);
+                osMessageQueuePut(LoraMsgQueueHandle,&key,0,10); //给lora任务消息
+                osMessageQueuePut(LedMsgQueueHandle,&key,0,10);  //给自己灯任务消息
             }
             osDelay(50);
         }
@@ -28,11 +27,11 @@ void StartLedTask(void *argument)
 
 uint8_t DetectKey(void) {
     //3个按键按下为低电平
-    if (HAL_GPIO_ReadPin(KEY1_GPIO_Port,KEY1_Pin) == GPIO_PIN_RESET) {
+    if (KEY1_DIN() == GPIO_PIN_RESET) {
         TickType_t conunt1 = xTaskGetTickCount();
         osDelay(5);
-        if (HAL_GPIO_ReadPin(KEY1_GPIO_Port,KEY1_Pin) == GPIO_PIN_RESET) {
-            while (HAL_GPIO_ReadPin(KEY1_GPIO_Port,KEY1_Pin)== GPIO_PIN_RESET) {
+        if (KEY1_DIN() == GPIO_PIN_RESET) {
+            while (KEY1_DIN() == GPIO_PIN_RESET) {
                 osDelay(1);//可以观察高优先级任务占用CPU的情况
             }
         }
@@ -44,27 +43,27 @@ uint8_t DetectKey(void) {
             return KEY_1_DOWN;
         }
     }
-    else if (HAL_GPIO_ReadPin(KEY2_GPIO_Port,KEY2_Pin) == GPIO_PIN_RESET) {
+    else if (KEY2_DIN() == GPIO_PIN_RESET) {
         TickType_t conunt1 = xTaskGetTickCount();
         osDelay(5);
-        if (HAL_GPIO_ReadPin(KEY2_GPIO_Port,KEY2_Pin) == GPIO_PIN_RESET) {
-            while (HAL_GPIO_ReadPin(KEY2_GPIO_Port,KEY2_Pin) == GPIO_PIN_RESET) {
+        if (KEY2_DIN() == GPIO_PIN_RESET) {
+            while (KEY2_DIN() == GPIO_PIN_RESET) {
                 osDelay(1);//可以观察高优先级任务占用CPU的情况
             }
             TickType_t conunt2 = xTaskGetTickCount();
             if (conunt2-conunt1 > 500) {
-                return KEY_3_LONG;
+                return KEY_2_LONG;
             }
             else {
                 return KEY_2_DOWN;
             }
         }
     }
-    else if (HAL_GPIO_ReadPin(KEY3_GPIO_Port,KEY3_Pin) == GPIO_PIN_RESET) {
+    else if (KEY3_DIN()== GPIO_PIN_RESET) {
         TickType_t conunt1 = xTaskGetTickCount();
         osDelay(5);
-        if (HAL_GPIO_ReadPin(KEY3_GPIO_Port,KEY3_Pin) == GPIO_PIN_RESET) {
-            while (HAL_GPIO_ReadPin(KEY3_GPIO_Port,KEY3_Pin) == GPIO_PIN_RESET) {
+        if (KEY3_DIN() == GPIO_PIN_RESET) {
+            while (KEY3_DIN() == GPIO_PIN_RESET) {
                 osDelay(1);//可以观察高优先级任务占用CPU的情况
             }
             TickType_t conunt2 = xTaskGetTickCount();

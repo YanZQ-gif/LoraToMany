@@ -79,7 +79,8 @@ void Error_Handler(void);
 #define SPI1_NSS_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
-extern  osMessageQueueId_t KeyMsgQueueHandle;
+extern  osMessageQueueId_t LoraMsgQueueHandle;
+extern  osMessageQueueId_t LedMsgQueueHandle;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

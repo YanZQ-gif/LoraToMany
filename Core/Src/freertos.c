@@ -68,10 +68,15 @@ const osThreadAttr_t LoraTask_attributes = {
   .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityRealtime,
 };
-/* Definitions for KeyMsgQueue */
-osMessageQueueId_t KeyMsgQueueHandle;
-const osMessageQueueAttr_t KeyMsgQueue_attributes = {
-  .name = "KeyMsgQueue"
+/* Definitions for LoraMsgQueue */
+osMessageQueueId_t LoraMsgQueueHandle;
+const osMessageQueueAttr_t LoraMsgQueue_attributes = {
+  .name = "LoraMsgQueue"
+};
+/* Definitions for LedMsgQueue */
+osMessageQueueId_t LedMsgQueueHandle;
+const osMessageQueueAttr_t LedMsgQueue_attributes = {
+  .name = "LedMsgQueue"
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -120,8 +125,11 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the queue(s) */
-  /* creation of KeyMsgQueue */
-  KeyMsgQueueHandle = osMessageQueueNew (6, sizeof(int), &KeyMsgQueue_attributes);
+  /* creation of LoraMsgQueue */
+  LoraMsgQueueHandle = osMessageQueueNew (6, sizeof(int), &LoraMsgQueue_attributes);
+
+  /* creation of LedMsgQueue */
+  LedMsgQueueHandle = osMessageQueueNew (6, sizeof(int), &LedMsgQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
