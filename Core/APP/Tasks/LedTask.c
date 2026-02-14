@@ -14,10 +14,12 @@ static void LedBlink(void)
         if (ledDev.blinkState == 0) {
             LED1(1);
             LED2(0);
+            BEEP(1);
             ledDev.blinkState = 1;
         } else {
             LED1(0);
             LED2(1);
+            BEEP(0);
             ledDev.blinkState = 0;
         }
         ledDev.lastBlinkTime = currentTime;
@@ -33,17 +35,18 @@ static void LedProcessCommand(uint32_t cmd)
                 ledDev.blinkState = 0;
                 ledDev.lastBlinkTime = osKernelGetTickCount();
             }
-        break;
+            break;
 
         case KEY_GUANDENG:
             ledDev.enabled = 0;
             LED1(0);
             LED2(0);
-        break;
+            BEEP(0);
+            break;
 
         case KEY_TIAOLIANGDU:
         //先不做
-        break;
+            break;
 
         default: break;
     }
@@ -54,7 +57,7 @@ void StartLedTask(void *argument)
 {
     /* USER CODE BEGIN StartKeyTask */
     ledDev.state = LED_LUNSHAN_OFF;
-    ledDev.shanTime = 100;
+    ledDev.shanTime = 400;
     ledDev.enabled = 0;
     ledDev.blinkState = 0;
     ledDev.lastBlinkTime = 0;
@@ -62,7 +65,8 @@ void StartLedTask(void *argument)
     /* Infinite loop */
     for(;;)
     {
-        uint32_t cmd;
+        //uint32_t cmd;
+        KEY_ENUM cmd;
         osStatus_t status = osMessageQueueGet(LedMsgQueueHandle,&cmd,0,10);
         
         if (status == osOK) {

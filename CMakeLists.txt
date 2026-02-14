@@ -80,3 +80,9 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 
     # Add user defined libraries
 )
+# 替换your_target_name为你的目标名称
+add_custom_command(
+        TARGET LoraToMany POST_BUILD
+        COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:LoraToMany> ${CMAKE_CURRENT_BINARY_DIR}/LoraToMany.hex
+        COMMENT "Generating HEX file"
+)
