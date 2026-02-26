@@ -16,7 +16,9 @@ void StartKeyTask(void *argument)
         for (;;) {
             KEY_ENUM key = DetectKey();
             if (key != KEY_NONE) {
-                osMessageQueuePut(LoraMsgQueueHandle,&key,0,10); //给lora任务消息
+                if (key != KEY_TIAOLIANGDU) {
+                    osMessageQueuePut(LoraMsgQueueHandle,&key,0,10); //给lora任务消息
+                }
                 osMessageQueuePut(LedMsgQueueHandle,&key,0,10);  //给自己灯任务消息
             }
             osDelay(50); //50ms扫描一次按键
