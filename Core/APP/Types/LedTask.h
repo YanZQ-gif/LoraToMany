@@ -17,10 +17,12 @@
 
 #define  LED1_PWM(duty) __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, duty)
 #define  LED2_PWM(duty) __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, duty)
+#define  LED3_PWM(duty) __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, duty)
 
 typedef enum {
-    LED_LUNSHAN_OFF=0,
-    LED_LUNSHAN_ON=1, //交替闪烁
+    LED_LUNSHAN=0,   //正常闪烁
+    LED_BAOSHAN=1,   //快速闪烁
+    LED_3_ALL_ON=2,  //3灯全亮
 }LEDState;
 
 typedef enum {
@@ -34,7 +36,9 @@ typedef enum {
 typedef struct {
     LEDState state;
     uint16_t shanTime;
-    uint8_t  enabled;
+    uint16_t baoshanTime;
+    uint8_t  ledshan_enabled;
+    uint8_t  beep_enabled;
     uint8_t  blinkState;
     uint32_t lastBlinkTime;
     uint8_t  brightness;
