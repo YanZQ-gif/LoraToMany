@@ -24,11 +24,16 @@ typedef enum {
     KEY_3_DOWN,				/* 3键按下 */  //开灯
     KEY_3_UP,				/* 3键弹起 */
     KEY_3_LONG,				/* 3键长按 */
+
+    KEY_1_3_DOWN,            /* 1.3组合键按下 */
+    KEY_1_3_UP,              /* 1.3组合键弹起*/
+    KEY_1_3_LONG,            /* 1.3键长按 */
 }KEY_ENUM;
 
-#define KEY_GUANDENG    KEY_1_DOWN  // 关灯对应1键按下
-#define KEY_TIAOLIANGDU KEY_2_DOWN  // 调亮度对应2键按下
-#define KEY_KAIDENG     KEY_3_DOWN  // 开灯对应3键按下
+#define  KEY_GUANDENG    KEY_1_DOWN    // 关灯对应1键按下
+#define  KEY_TIAOLIANGDU KEY_2_DOWN    // 调亮度对应2键按下 V2.0版去掉这个按键 值保留 不想改程序了，不用就行
+#define  KEY_KAIDENG     KEY_3_DOWN    // 开灯对应3键按下 3个模式切换
+#define  KEY_BAOJING     KEY_1_3_LONG  //1.3长按模式选择
 
 uint8_t DetectKey(void);
 

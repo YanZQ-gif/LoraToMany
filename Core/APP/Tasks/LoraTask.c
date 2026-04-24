@@ -26,7 +26,11 @@ void StartLoraTask(void *argument)
     {
     	uint32_t key;
     	osStatus_t status = osMessageQueueGet(LoraMsgQueueHandle,&key,0,10);
-    	if (status == osOK) {
+    	if (status == osOK) { //连发3次
+    		Lora_SendFrame(key,LORA_CMD_FRAME_ID,LORA_DEV_ID);
+    		osDelay(200);
+    		Lora_SendFrame(key,LORA_CMD_FRAME_ID,LORA_DEV_ID);
+    		osDelay(200);
     		Lora_SendFrame(key,LORA_CMD_FRAME_ID,LORA_DEV_ID);
     	}
     	LoraProcess(); //查询接收
