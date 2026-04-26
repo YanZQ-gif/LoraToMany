@@ -60,7 +60,7 @@ static void LedProcessCommand(uint32_t cmd)
                 else if (ledDev.state == LED_BAOSHAN) {
                     ledDev.ledshan_enabled = 1;
                     ledDev.beep_enabled = 0;  //关蜂鸣器
-                    ledDev.shanTime = 50;
+                    ledDev.shanTime = 100;
                 }//爆闪时间调整
                 else if (ledDev.state == LED_3_ALL_ON) {                     //3灯全亮，禁闪烁使能
                     ledDev.ledshan_enabled = 0;
