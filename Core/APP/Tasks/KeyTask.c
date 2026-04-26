@@ -30,19 +30,12 @@ void StartKeyTask(void *argument)
 uint8_t DetectKey(void) {
     //3个按键按下为低电平
     if ( (KEY1_DIN()== GPIO_PIN_RESET) && (KEY3_DIN()== GPIO_PIN_RESET) ) {
-        TickType_t conunt1 = xTaskGetTickCount();
         osDelay(5);
         if ( (KEY1_DIN()== GPIO_PIN_RESET) && (KEY3_DIN()== GPIO_PIN_RESET) ) {
             while ( (KEY1_DIN()== GPIO_PIN_RESET) && (KEY3_DIN()== GPIO_PIN_RESET) ) {
                 osDelay(1);//可以观察高优先级任务占用CPU的情况
             }
-            TickType_t conunt2 = xTaskGetTickCount();
-            if (conunt2-conunt1 > 100) {
-                return KEY_1_3_LONG;
-            }
-            else {
-                return KEY_1_3_DOWN;
-            }
+            return KEY_1_3_LONG;
         }
     }
     else if (KEY1_DIN() == GPIO_PIN_RESET) {
