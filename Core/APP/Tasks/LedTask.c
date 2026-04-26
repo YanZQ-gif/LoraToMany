@@ -12,7 +12,7 @@ static const uint16_t brightnessTable[] = {
     750, // 75%
     500, // 50%
     250, // 25%
-    0     // 0%
+    0     // 0% %
 };
 
 static void LedBlink(void)  //普通闪
