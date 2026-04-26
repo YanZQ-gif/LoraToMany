@@ -37,7 +37,7 @@ uint8_t DetectKey(void) {
                 osDelay(1);//可以观察高优先级任务占用CPU的情况
             }
             TickType_t conunt2 = xTaskGetTickCount();
-            if (conunt2-conunt1 > 500) {
+            if (conunt2-conunt1 > 100) {
                 return KEY_1_3_LONG;
             }
             else {
