@@ -52,6 +52,7 @@ static void LedProcessCommand(uint32_t cmd)
 
         case KEY_KAIDENG:
             //if (!ledDev.ledshan_enabled) {
+                BEEP(0);
                 if (ledDev.state == LED_LUNSHAN) {
                     ledDev.ledshan_enabled = 1;
                     ledDev.beep_enabled = 0;  //关蜂鸣器
@@ -78,6 +79,7 @@ static void LedProcessCommand(uint32_t cmd)
             break;
 
         case KEY_GUANDENG:
+            BEEP(0);
             ledDev.ledshan_enabled = 0;
             ledDev.beep_enabled = 0;  //关蜂鸣器
             LED1_PWM(brightnessTable[BRIGHTNESS_0]);
